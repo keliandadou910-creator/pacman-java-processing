@@ -58,16 +58,13 @@ Extrait des problématiques traitées durant le cycle de développement et de d�
 ### Prérequis
 - [Processing IDE](https://processing.org/download) (version 3.x ou 4.x recommandée) avec le mode Java standard.
 
-### Lancement
+### Lancement & Fonctionnement
 1. Cloner le dépôt :
    ```bash
-   git clone https://github.com/keliandadou910-creator/pacman-processing.git```
-
-
-#### Fonctionnement
-1. Ouvrir le fichier pacman.pde dans l'IDE Processing.
-2. Vérifier la présence des dossiers img/ (sprites) et levels/ (level1.txt).
-3. Cliquer sur le bouton Exécuter (Play).
-4. Contrôles-Déplacements : Flèches directionnelles ou touches Z, Q, S, D
-5. Menu Pause : Touche Échap (ESC)
-6. Navigation Menu : Flèches Haut / Bas + Entrée
+   git clone https://github.com/keliandadou910-creator/pacman-processing.git
+2. Ouvrir le fichier pacman.pde dans l'IDE Processing.
+3. Vérifier la présence des dossiers img/ (sprites) et levels/ (level1.txt).
+4. Cliquer sur le bouton Exécuter (Play).
+5. Contrôles-Déplacements : Flèches directionnelles ou touches Z, Q, S, D
+6. Menu Pause : Touche Échap (ESC)
+7. Navigation Menu : Flèches Haut / Bas + Entrée
