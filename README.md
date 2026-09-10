@@ -61,7 +61,7 @@ Extrait des problématiques traitées durant le cycle de développement et de d�
 ### Lancement & Fonctionnement
 1. Cloner le dépôt :
    ```bash
-   git clone https://github.com/keliandadou910-creator/pacman-processing.git
+   git clone https://github.com/keliandadou910-creator/pacman-java-processing.git
 2. Ouvrir le fichier pacman.pde dans l'IDE Processing.
 3. Vérifier la présence des dossiers img/ (sprites) et levels/ (level1.txt).
 4. Cliquer sur le bouton Exécuter (Play).
