@@ -1,70 +1,64 @@
 # Pac-Man 2D — Java / Processing
 
-Recréation fidèle du jeu d'arcade classique Pac-Man développée en **Java / Processing** dans le cadre de ma Licence 2 Mathématiques-Informatique.  
-Le projet met en œuvre les principes fondamentaux de la **Programmation Orientée Objet (POO)**, une architecture modulaire et la gestion d'états en temps réel.
+A faithful recreation of the classic arcade game Pac-Man developed in **Java / Processing** as part of my 2nd-year Bachelor's degree in Mathematics and Computer Science.  
+The project implements fundamental **Object-Oriented Programming (OOP)** principles, modular software architecture, and real-time state management.
 
 ---
 
-## 🎮 Fonctionnalités & Mécaniques de Jeu
+## 🎮 Features & Gameplay Mechanics
 
-- **Contrôles & Fluidité (Input Buffering) :** Mémorisation de la direction souhaitée (`_desiredDirection`) pour engager automatiquement les virages dès l'intersection suivante, garantissant un gameplay sans à-coups.
-- **IA des Fantômes & Gestion des États :** 
-  - Déplacements autonomes sur grille avec interdiction du demi-tour spontané.
-  - Cycle de sortie temporisé depuis la maison centrale.
-  - Mode apeuré (*Frightened*) avec réduction de vitesse et bascule visuelle.
-- **Système de Score Rétro-Arcade :**
-  - Collecte de pac-gommes et super pac-gommes.
-  - Multiplicateur de score croissant sur les fantômes mangés (200, 400, 800, 1600 pts).
-  - Apparition et disparition aléatoires de bonus temporaires (fruits).
-  - Gain d'une vie supplémentaire au franchissement des 10 000 points.
-- **Persistance des Données (I/O) :**
-  - Chargement dynamique du niveau depuis une matrice textuelle (`level1.txt`).
-  - Système de sauvegarde et reprise d'état en cours de partie (`save.txt`).
-  - Gestion d'un tableau Top 5 des scores avec tri à l'insertion et saisie interactive du nom du joueur.
-- **Interface & Contrôles :** Menu pause avec navigation clavier, écran de Game Over et gestion des raccourcis.
-
----
-
-## 🏗️ Architecture Logicielle & Choix de Conception
-
-Le programme suit une séparation stricte des responsabilités (POO) pour assurer modularité et lisibilité :
-
-- `Board` : Modélisation et rendu de la grille matricielle (murs, couloirs, tunnels toriques, gommes et bonus).
-- `Hero` : Entité Pac-Man (gestion vectorielle de position, normalisation cardinale, orientation des sprites).
-- `Ghost` : Machine à états des fantômes (patrouille, vulnérabilité, retour en maison et respawn).
-- `Game` : Chef d'orchestre du jeu (boucle principale, détection des conditions de fin, coordination des sous-systèmes).
-- `Menu` : IHM superposée (reprise, redémarrage, sauvegarde, tableau des scores).
-- `Constants` : Centralisation des règles métier (scores, vitesses, temporisations).
+- **Input Buffering & Smooth Controls:** Direction queuing via `_desiredDirection` to automatically take turns at the next valid intersection, ensuring responsive and fluid grid navigation.
+- **Ghost AI & State Machines:**
+  - Autonomous tile-based pathing with reverse-direction restrictions.
+  - Timed exit cycles from the central ghost house.
+  - *Frightened* mode featuring dynamic speed reduction and sprite switching.
+- **Classic Arcade Scoring System:**
+  - Dot and energizer (power pellet) collection.
+  - Progressive ghost multiplier mechanics (200, 400, 800, 1600 pts).
+  - Timed random bonus items (fruit spawns).
+  - Extra life awarded at the 10,000-point threshold.
+- **Data Persistence (File I/O):**
+  - Dynamic level parsing from text-based matrix files (`level1.txt`).
+  - In-game save and resume system via flat-file persistence (`save.txt`).
+  - Top 5 leaderboard using insertion sort with interactive player name input.
+- **UI & Flow:** Pause menu with keyboard navigation, Game Over screen, and custom key bindings.
 
 ---
 
-## 🛠️ Défis Techniques & Résolution de Problèmes
+## 🏗️ Software Architecture & Design Patterns
 
-Extrait des problématiques traitées durant le cycle de développement et de débogage :
+The project enforces a strict Separation of Concerns (SoC) using OOP to ensure code maintainability and readability:
 
-1. **Centralisation de la logique de collision :**  
-   Pour éviter que plusieurs fantômes ne modifient l'état global du jeu dans la même frame (entraînant des pertes multiples de vies instantanées), la détection de collision et l'application des dégâts ont été centralisées au sein de `Game` avec une interruption ciblée du cycle de mise à jour dès le déclenchement d'un impact.
-
-2. **Fiabilisation des transitions d'états :**  
-   Résolution de désynchronisations où les fantômes conservaient un état vulnérable post-élimination via une réinitialisation explicite et déterministe lors du `respawn()`.
-
-3. **Système de buffer de commande :**  
-   Remplacement d'une lecture de touche brute par un système d'anticipation de trajectoire pour gommer la rigidité des déplacements sur grille discrète.
+- `Board`: Models and renders the tile grid matrix (walls, corridors, wrapping tunnels, pellets, and bonuses).
+- `Hero`: Encapsulates Pac-Man's state, directional vector handling, and sprite orientation.
+- `Ghost`: Finite state machine governing ghost behaviors (patrolling, vulnerability, house return, and respawning).
+- `Game`: Core game loop coordinator (tick updates, win/loss evaluation, and subsystem synchronization).
+- `Menu`: Layered UI state overlay (resume, restart, save game, high scores).
+- `Constants`: Single source of truth for game balancing rules (scores, speeds, tick delays).
 
 ---
 
-## 🚀 Installation & Exécution
+## 🛠️ Technical Challenges & Engineering Solutions
 
-### Prérequis
-- [Processing IDE](https://processing.org/download) (version 3.x ou 4.x recommandée) avec le mode Java standard.
+Key engineering problems tackled during the development and debugging lifecycle:
 
-### Lancement & Fonctionnement
-1. Cloner le dépôt :
+1. **Atomic Collision Handling:**  
+   To prevent race conditions where multiple ghosts triggered damage within the same frame (causing unintended multiple life losses), collision detection and life management were centralized inside `Game`, immediately interrupting the tick cycle on fatal impacts.
+
+2. **Deterministic State Transitions:**  
+   Eliminated edge cases where ghosts remained vulnerable post-elimination by enforcing explicit and deterministic state resets inside `respawn()`.
+
+3. **Input Buffer Implementation:**  
+   Replaced raw polling with an intended-direction buffer, eliminating input dropped frames and smoothing discrete grid-based turns.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- [Processing IDE](https://processing.org/download) (version 3.x or 4.x) with the default Java mode enabled.
+
+### Installation & Run
+1. Clone the repository:
    ```bash
-   git clone https://github.com/keliandadou910-creator/pacman-java-processing.git
-2. Ouvrir le fichier pacman.pde dans l'IDE Processing.
-3. Vérifier la présence des dossiers img/ (sprites) et levels/ (level1.txt).
-4. Cliquer sur le bouton Exécuter (Play).
-5. Contrôles-Déplacements : Flèches directionnelles ou touches Z, Q, S, D
-6. Menu Pause : Touche Échap (ESC)
-7. Navigation Menu : Flèches Haut / Bas + Entrée
+   git clone [https://github.com/keliandadou910-creator/pacman-java-processing.git](https://github.com/keliandadou910-creator/pacman-java-processing.git)
